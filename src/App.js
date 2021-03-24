@@ -1,25 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import { Component } from 'react';
+import MoviesList from './components/moviesList/MoviesList';
+import CreateMovie from './components/createMovie/CreateMovie';
+import Spinner from './components/spinner/Spinner';
+import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+	state = { isLoading: false, isCreateMovieOpen: false };
+	componentDidMount() {}
+	handleCreateMovie = () => {
+		console.log(this.state.isCreateMovieOpen);
+		this.setState((prevState) => {
+			return { isCreateMovieOpen: !prevState.isCreateMovieOpen };
+		});
+	};
+
+	deleteMovie() {}
+	editMovie() {}
+	render() {
+		return (
+			<div className="App">
+				{this.state.isLoading && <Spinner />}
+				<MoviesList />
+				<button onClick={this.handleCreateMovie}>Add Movie to the list</button>
+				{this.isCreateMovieOpen && <CreateMovie />}
+			</div>
+		);
+	}
 }
 
 export default App;

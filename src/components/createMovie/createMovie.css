@@ -1,0 +1,27 @@
+form {
+	display: flex;
+	flex-direction: column;
+}
+label {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+input {
+	height: 1.5rem;
+	width: 10rem;
+}
+
+[type='submit'] {
+	background-color: rgb(42, 42, 102);
+	color: white;
+	border-radius: 10px;
+	border: 2px solid;
+	cursor: pointer;
+}
+
+[type='file'] {
+	display: none;
+}
