@@ -3,41 +3,85 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 
 import './createMovie.css';
-
 class CreateMovie extends Component {
+	state = {};
+
+	onFormSubmit = (e) => {
+		e.preventDefault();
+		this.props.onFormSubmit(this.state);
+	};
+	handleChange = (e) => {
+		this.setState({ [e.target.name]: e.target.value });
+		// console.log(this.state);
+	};
+
 	render() {
 		return (
-			<form>
+			<form onSubmit={this.onFormSubmit}>
+				<label className="title-header">Add Movie To the List</label>
 				<label>
 					Title:
-					<input type="text" name="title" />
+					<input
+						value={this.state.title}
+						onChange={this.handleChange}
+						type="text"
+						name="title"
+					/>
 				</label>
 				<label>
 					Genere:
-					<input type="text" name="genere" />
+					<input
+						type="text"
+						name="genre"
+						value={this.state.genre}
+						onChange={this.handleChange}
+					/>
 				</label>
 				<label>
 					Release Date:
-					<input type="date" name="relaese-date" />
+					<input
+						value={this.state.releaseDate}
+						onChange={this.handleChange}
+						type="date"
+						name="releaseDate"
+					/>
 				</label>
 				<label>
 					Diractor:
-					<input type="string" name="diractor" />
+					<input
+						value={this.state.director}
+						onChange={this.handleChange}
+						type="text"
+						name="diractor"
+					/>
 				</label>
 				<label>
 					Plot:
-					<textarea rows="4" cols="50" name="plot" />
+					<textarea
+						value={this.state.plot}
+						onChange={this.handleChange}
+						rows="4"
+						cols="50"
+						name="plot"
+					/>
 				</label>
 				<div className="button">
 					<label htmlFor="single">
+						Add Poster
 						<FontAwesomeIcon
 							icon={faImage}
 							color="rgb(42, 42, 102)"
-							size="10x"
+							size="6x"
 							cursor="pointer"
 						/>
 					</label>
-					<input type="file" id="single" />
+					<input
+						name="poster"
+						type="file"
+						id="single"
+						value={this.state.poster}
+						onChange={this.handleChange}
+					/>
 				</div>
 				<input type="submit" value="Submit" />
 			</form>

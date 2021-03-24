@@ -3,8 +3,9 @@ form {
 	flex-direction: column;
 	align-items: center;
 	border: 2px solid rgb(42, 42, 102);
+	padding: 5px;
 }
-.title {
+.title-header {
 	color: rgb(42, 42, 102);
 	font-size: 22px;
 }
