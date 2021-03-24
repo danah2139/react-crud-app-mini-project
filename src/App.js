@@ -12,6 +12,7 @@ class App extends Component {
 		isCreateMovieOpen: false,
 		movies: null,
 		selectedMovie: null,
+		isEditOpen: false,
 	};
 	async componentDidMount() {
 		this.setState({ isLoading: true });
@@ -22,8 +23,14 @@ class App extends Component {
 	}
 	handleCreateMovie = () => {
 		this.setState((prevState) => {
-			return { isCreateMovieOpen: !prevState.isCreateMovieOpen };
+			return {
+				isCreateMovieOpen: !prevState.isCreateMovieOpen,
+			};
 		});
+	};
+
+	openEdit = (bool) => {
+		this.setState({ isEditOpen: { bool } });
 	};
 	createMovie = async (movie) => {
 		//console.log('hi', movie);
@@ -35,10 +42,20 @@ class App extends Component {
 	};
 	deleteMovie = async (id) => {
 		await API.delete(`/movies/${id}`);
-		const data = this.state.movies.filter((el) => el.id !== id);
+		const data = this.state.movies.filter((movie) => movie.id !== id);
 		this.setState({ movies: data });
 	};
-	editMovie = async (id, value) => {};
+	editMovie = async (newMovie) => {
+		console.log(newMovie);
+		const { data } = await API.put(`movies/${newMovie.id}`, newMovie);
+		const index = this.state.movies.findIndex(
+			(movie) => movie.id === newMovie.id
+		);
+		const newMovies = [...this.state.movies];
+		newMovies[index] = data;
+		this.setState({ movies: newMovies });
+		this.setState({ isEditOpen: false });
+	};
 	render() {
 		return (
 			<div className="App">
@@ -46,7 +63,10 @@ class App extends Component {
 				{this.state.movies && (
 					<MoviesList
 						removeMovie={this.deleteMovie}
+						editMovie={this.editMovie}
 						movies={this.state.movies}
+						isEditOpen={this.state.isEditOpen}
+						openEdit={this.openEdit}
 					/>
 				)}
 				<button onClick={this.handleCreateMovie}>Add Movie to the list</button>

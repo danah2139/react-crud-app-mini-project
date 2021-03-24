@@ -11,7 +11,13 @@ class CreateMovie extends Component {
 		this.props.onFormSubmit(this.state);
 	};
 	handleChange = (e) => {
-		this.setState({ [e.target.name]: e.target.value });
+		console.log(e.target);
+		if (e.target.name === 'poster') {
+			this.setState({ [e.target.name]: e.target.files[0] });
+		} else {
+			this.setState({ [e.target.name]: e.target.value });
+		}
+
 		// console.log(this.state);
 	};
 
@@ -75,13 +81,7 @@ class CreateMovie extends Component {
 							cursor="pointer"
 						/>
 					</label>
-					<input
-						name="poster"
-						type="file"
-						id="single"
-						value={this.state.poster}
-						onChange={this.handleChange}
-					/>
+					<input name="poster" type="file" onChange={this.handleChange} />
 				</div>
 				<input type="submit" value="Submit" />
 			</form>
