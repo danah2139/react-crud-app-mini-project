@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import './movieDetail.css';
+import createMovie from '../createMovie/CreateMovie';
 
 class MovieDetail extends Component {
 	state = {};
